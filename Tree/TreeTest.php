@@ -1,7 +1,9 @@
 <?php
-require_once 'Tree.php';
+namespace Tree;
 
-class TreeTest
+use PHPUnit\Framework\TestCase;
+
+class TreeTest extends TestCase
 {
 
     public $id = 'id';
@@ -24,11 +26,13 @@ class TreeTest
         }
 
         $tree =  new Tree($items, $this->id, $this->pId, $this->child);
-        print_r($tree->buildTree());
-        echo PHP_EOL, 'memory size : ', number_format(memory_get_usage()), PHP_EOL;
+
+        $this->assertTrue(is_array($tree->buildTree()));
+
+        print PHP_EOL . 'memory size : ' . number_format(memory_get_usage()) . PHP_EOL;
 
     }
 }
 
 
-(new TreeTest())->testBuildTree();
+

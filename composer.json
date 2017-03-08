@@ -1,0 +1,7 @@
+{
+  "name":"miknock/tt",
+  "description":"Tool & Test",
+  "require":{
+    "phpunit/phpunit":">=6.0"
+  }
+}
