@@ -25,7 +25,7 @@ class SingletonTest extends TestCase
      */
     public function testClone()
     {
-         $cloneInstance = clone Singleton::getInstance();
+         return clone Singleton::getInstance();
     }
 
 
