@@ -5,7 +5,7 @@ namespace Design\Singleton;
 use PHPUnit\Framework\Error\Error;
 use PHPUnit\Framework\TestCase;
 
-class SingletonTest extends TestCase
+class Test extends TestCase
 {
     /**
      * @expectedException Error
