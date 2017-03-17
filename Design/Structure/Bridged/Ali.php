@@ -2,7 +2,7 @@
 namespace Design\Structure\Bridged;
 
 /**
- * 具体的
+ * 修正抽象化角色
  *
  * Class Ali
  * @package Design\Structure\Bridged
