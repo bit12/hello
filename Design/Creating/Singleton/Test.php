@@ -1,5 +1,5 @@
 <?php
-namespace Design\Singleton;
+namespace Design\Creating\Singleton;
 
 
 use PHPUnit\Framework\Error\Error;

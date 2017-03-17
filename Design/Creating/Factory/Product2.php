@@ -1,6 +1,6 @@
 <?php
 
-namespace Design\Factory;
+namespace Design\Creating\Factory;
 
 
 class Product2  implements IProduct

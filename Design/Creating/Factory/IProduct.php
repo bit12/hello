@@ -1,5 +1,5 @@
 <?php
-namespace Design\Factory;
+namespace Design\Creating\Factory;
 
 /**
  * Interface IProduct

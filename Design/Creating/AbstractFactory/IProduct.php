@@ -1,5 +1,5 @@
 <?php
-namespace Design\AbstractFactory;
+namespace Design\Creating\AbstractFactory;
 
 /**
  * Interface IProduct

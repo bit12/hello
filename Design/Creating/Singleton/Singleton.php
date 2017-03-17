@@ -1,5 +1,5 @@
 <?php
-namespace Design\Singleton;
+namespace Design\Creating\Singleton;
 
 
 class Singleton

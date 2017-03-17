@@ -1,5 +1,5 @@
 <?php
-namespace Design\SimpleFactory;
+namespace Design\Creating\SimpleFactory;
 
 
 class Product1 implements IProduct

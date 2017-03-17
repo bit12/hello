@@ -1,5 +1,5 @@
 <?php
-namespace Design\AbstractFactory;
+namespace Design\Creating\AbstractFactory;
 
 
 class Product1Factory implements IProductFactory

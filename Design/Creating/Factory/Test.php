@@ -1,6 +1,6 @@
 <?php
 
-namespace Design\Factory;
+namespace Design\Creating\Factory;
 
 
 use PHPUnit\Framework\TestCase;
