@@ -6,7 +6,7 @@ namespace Design\Creating\Builder;
  * Class CarBuilder
  * @package Design\Creating\Builder
  */
-abstract  class CarBuilder
+abstract class CarBuilder
 {
 
     protected $car;
