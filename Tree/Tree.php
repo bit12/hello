@@ -2,11 +2,11 @@
 namespace Tree;
 
 /**
- * Tree tool
+ * Composite tool
  *
  *
- * Class Tree
- * @package Tree
+ * Class Composite
+ * @package Composite
  */
 class Tree
 {
