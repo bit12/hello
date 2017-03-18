@@ -4,9 +4,9 @@
 
 ## 角色&责任
 
-抽象主题角色（Subject）：定义了RealSubject和Proxy公用接口，这样就在任何使用RealSubject的地方都可以使用Proxy。
+抽象主题角色（ISubject）：定义了RealSubject和Proxy公用接口，这样就在任何使用RealSubject的地方都可以使用Proxy。
 
-真正主题角色（RealSubject）：定义了Proxy所代表的真实实体。
+真正主题角色（Subject）：定义了Proxy所代表的真实实体。
 
 代理对象（Proxy）：保存一个引用使得代理可以访问实体，并提供一个与RealSubject接口相同的接口，这样代理可以用来代替实体(RealSubject)。
 
