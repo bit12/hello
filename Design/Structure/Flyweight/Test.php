@@ -26,9 +26,7 @@ class Test extends TestCase
         $this->assertEquals($factory->getFlyweight(1000)->show(), 3000);
     }
 
-    /**
-     * @dataProvider getFactory
-     */
+
     public function testUnshared()
     {
         $this->assertEquals((new UnsharedConcreteFlyweight(2000))->show(), 2000);
