@@ -17,7 +17,7 @@ class AmativenessVisitor extends Visitor
 
     public function getWomanAction(Woman $woman)
     {
-        print $woman->type . '恋爱时，遇事懂也要装作不懂;' . PHP_EOL;
+        print $woman->type . '恋爱时，遇事懂也装作不懂;' . PHP_EOL;
     }
 
 }
