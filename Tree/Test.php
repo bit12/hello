@@ -3,7 +3,7 @@ namespace Tree;
 
 use PHPUnit\Framework\TestCase;
 
-class TreeTest extends TestCase
+class Test extends TestCase
 {
 
     public $id = 'id';
@@ -12,7 +12,8 @@ class TreeTest extends TestCase
 
     public $child = 'child';
 
-    public function testBuildTree()
+
+    public function getItems()
     {
         $items = [];
 
@@ -25,12 +26,19 @@ class TreeTest extends TestCase
             ];
         }
 
+        return [[$items]];
+    }
+
+    /**
+     * @dataProvider getItems
+     */
+    public function testBuildTree(array $items)
+    {
         $tree =  new Tree($items, $this->id, $this->pId, $this->child);
 
         $this->assertTrue(is_array($tree->buildTree()));
 
         print PHP_EOL . 'memory size : ' . number_format(memory_get_usage()) . PHP_EOL;
-
     }
 }
 
