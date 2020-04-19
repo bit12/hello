@@ -1,7 +1,19 @@
 {
-  "name":"miknock/tt",
-  "description":"Tool & Test",
-  "require":{
-    "phpunit/phpunit":">=6.0"
+  "name": "qubitma/ptool",
+  "description": "PHP of tools.",
+  "require": {
+    "php": ">=7.4"
+  },
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "qubitma",
+      "email": "qubit.ma@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Ptool\\": "src/"
+    }
   }
 }
