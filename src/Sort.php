@@ -8,39 +8,123 @@ class Sort
 {
     /**
      * 快速排序
-     * 时间复杂度：O(nlogn)
-     * 有两个方向，左边的i下标一直往右走，当a[i] <= a[center_index]，其中center_index是中枢元素的数组下标，一般取为数组第0个元素
-     * 而右边的j下标一直往左走，当a[j] > a[center_index]。如果i和j都走不动了，i <= j, 交换a[i]和a[j],重复上面的过程，直到i>j
-     * 交换a[j]和a[center_index]，完成一趟快速排序
-     * 在中枢元素和a[j]交换的时候，很有可能把前面的元素的稳定性打乱，比如序列为 5 3 3 4 3 8 9 10 11，
-     * 现在中枢元素5和3(第5个元素，下标从1开始计)交换就会把元素3的稳定性打乱，所以快速排序是一个不稳定的排序算法，不稳定发生在中枢元素和a[j]交换的时刻
      *
-     * @param array $a
-     * @return array
+     * @param array $array
+     * @param int $sortFlag
      */
-    public static function quick (array $a)
+    public static function quick (array &$array, $sortFlag = SORT_ASC): void
     {
-        // 判断是否需要运行，因下面已拿出一个中间值，这里<=1
-        if (count($a) <= 1) {
-            return $a;
+        $s = count($array);
+        if ($s <= 1) {
+            return;
         }
-
-        $middle = $a[0]; // 中间值
-        $left   = [];    // 接收小于中间值
-        $right  = [];    // 接收大于中间值
-
-        for ($i = 1; $i < count($a); $i++) {
-            if ($middle < $a[$i]) {// 大于中间值
-                $right[] = $a[$i];
-            } else {// 小于中间值
-                $left[] = $a[$i];
-            }
+        $middle = $array[0]; //中间值
+        $left   = [];
+        $right  = [];
+        for ($i = 1; $i < $s; $i++) {
+            $sortFlag == SORT_ASC && ($middle < $array[$i] ? $right[] = $array[$i] : $left[] = $array[$i]);
+            $sortFlag == SORT_DESC && ($middle < $array[$i] ? $left[] = $array[$i] : $right[] = $array[$i]);
         }
         // 递归排序划分好的2边
-        $left  = self::quick($left);
-        $right = self::quick($right);
-
+        self::quick($left, $sortFlag);
+        self::quick($right, $sortFlag);
         // 合并排序后的数据，别忘了合并中间值
-        return array_merge($left, [$middle], $right);
+        $array = array_merge($left, [$middle], $right);
+    }
+
+    /**
+     * 冒泡排序
+     *
+     * @param array $array
+     * @param int $sortFlag
+     */
+    public static function bubble (array &$array, int $sortFlag = SORT_ASC): void
+    {
+        $s = count($array);
+        if ($s <= 1) {
+            return;
+        }
+        $k = $s - 1; //k用来记录每趟排序的最大的交换位置
+        $p = 0;      //p记录最后一次交换的位置
+        for ($i = 0; $i < $s - 1; $i++) {
+            $f = true; //每一趟前都将f标志先置为true
+            for ($j = 0; $j < $k; $j++) {
+                if (($sortFlag == SORT_ASC && $array[$j] > $array[$j + 1]) || ($sortFlag == SORT_DESC && $array[$j] < $array[$j + 1])) {
+                    [$array[$j], $array[$j + 1]] = [$array[$j + 1], $array[$j]];
+                    $f = false;  //元素发生了交换，f置为false
+                    $p = $j;     //p存放循环里最后一次交换的位置j
+                }
+            }
+            if ($f) {
+                return;
+            }
+            $k = $p; //下一内层循环仅循环到0到这次得到的k之间
+        }
+    }
+
+    /**
+     * 选择排序
+     *
+     * @param array $array
+     * @param int $sortFlag
+     */
+    public static function select (array &$array, int $sortFlag = SORT_ASC): void
+    {
+        $s = count($array);
+        if ($s <= 1) {
+            return;
+        }
+        $m = $s / 2;
+        for ($i = 0; $i < $m; $i++) {
+            $maxIndex   = $s - $i - 1;
+            $startIndex = $i;
+            $endIndex   = $maxIndex;
+            for ($j = $i + 1; $j <= $maxIndex; $j++) {
+                if ($sortFlag == SORT_ASC) {
+                    $array[$startIndex] > $array[$j] && $startIndex = $j;
+                    $array[$endIndex] < $array[$j - 1] && $endIndex = $j - 1;
+                } else {
+                    $array[$startIndex] < $array[$j] && $startIndex = $j;
+                    $array[$endIndex] > $array[$j - 1] && $endIndex = $j - 1;
+                }
+            }
+            $startIndex != $i && ([$array[$startIndex], $array[$i]] = [$array[$i], $array[$startIndex]]);
+            if ($endIndex != $maxIndex) {
+                $startIndex != $i && $endIndex == $i && $endIndex = $startIndex; //endIndex 被替换之后重新赋值
+                [$array[$endIndex], $array[$maxIndex]] = [$array[$maxIndex], $array[$endIndex]];
+            }
+        }
+    }
+
+    /**
+     * 计数排序
+     *
+     * @param array $array
+     * @param int $sortFlag
+     */
+    public static function counting (array &$array, $sortFlag = SORT_ASC)
+    {
+        $s = count($array);
+        if ($s <= 1) return;
+        // 找出待排序的数组中最大值和最小值
+        $min = min($array);
+        $max = max($array);
+        // 计算待排序的数组中每个元素的个数
+        $countArr = [];
+        if ($sortFlag == SORT_ASC) for ($i = $min; $i <= $max; $i++) {
+            $countArr[$i] = 0;
+        }
+        else for ($i = $max; $i >= $min; $i--) {
+            $countArr[$i] = 0;
+        }
+        foreach ($array as $v) {
+            $countArr[$v] += 1;
+        }
+        $key = 0;
+        foreach ($countArr as $k => $c) {
+            for ($i = 0; $i < $c; $i++) {
+                $array[$key++] = $k;
+            }
+        }
     }
 }
