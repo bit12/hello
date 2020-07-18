@@ -22,8 +22,9 @@ class Sort
         $left   = [];
         $right  = [];
         for ($i = 1; $i < $s; $i++) {
-            $sortFlag == SORT_ASC && ($middle < $array[$i] ? $right[] = $array[$i] : $left[] = $array[$i]);
-            $sortFlag == SORT_DESC && ($middle < $array[$i] ? $left[] = $array[$i] : $right[] = $array[$i]);
+            $sortFlag == SORT_ASC
+                ? ($middle < $array[$i] ? $right[] = $array[$i] : $left[] = $array[$i])
+                : ($middle < $array[$i] ? $left[] = $array[$i] : $right[] = $array[$i]);
         }
         // 递归排序划分好的2边
         self::quick($left, $sortFlag);
@@ -127,4 +128,41 @@ class Sort
             }
         }
     }
+
+    /**
+     * 木桶排序
+     *
+     * @param $array
+     * @param int $sortFlag
+     * @param int $bucketCount
+     */
+    public static function bucket (&$array, $sortFlag = SORT_ASC, $bucketCount = 10)
+    {
+        $s   = count($array);
+        $max = max($array) + 1;
+        if ($s <= 1) return;
+        //填充木桶
+        $arrFill = array_fill(0, $bucketCount, []);
+        //开始标示木桶
+        for ($temp = $max / $bucketCount, $i = 0; $i < $s; $i++) {
+            $key                  = $array[$i] / $temp;
+            $arrFill[(int)$key][] = $array[$i];
+        }
+        //对每个不是空的桶进行排序
+        foreach ($arrFill as $key => $f) {
+            if ($f) self::counting($arrFill[$key], $sortFlag);
+        }
+        //开始从木桶中拿出数据
+        $array = [];
+        $fill  = function ($i) use (&$arrFill, &$array) {
+            if ($count = count($arrFill[$i])) for ($j = 0; $j < $count; $j++) {
+                if ($arrFill[$i][$j]) {
+                    $array[] = $arrFill[$i][$j];
+                }
+            }
+        };
+        if ($sortFlag == SORT_ASC) for ($i = 0; $i < $bucketCount; $i++) $fill($i);
+        else for ($i = $bucketCount - 1; $i >= 0; $i--) $fill($i);
+    }
 }
+
